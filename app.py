@@ -54,6 +54,21 @@ def open_positions():
     open_positions_df['time'] = pd.to_datetime(open_positions_df['time'])
     return render_template('open_positions.html', positions=open_positions_df)
 
+
+@app.route('/get_open_positions')
+def get_open_positions():
+    # code to fetch open positions from the database
+    conn = sqlite3.connect('trades.db')
+    open_positions_df = pd.read_sql_query("SELECT * FROM trades WHERE exit_price IS NULL", conn)
+    conn.close()
+    open_positions_df.drop('id', axis=1, inplace=True)
+    open_positions_df['time'] = pd.to_datetime(open_positions_df['time'])
+    
+    # convert the data to a JSON object
+    open_positions_json = open_positions_df.to_json(orient='records')
+    return json.dumps(open_positions_json)
+
+
 @app.route('/update_trades')
 def update_trades():
     conn = sqlite3.connect('trades.db')
@@ -91,8 +106,6 @@ def update_trades():
     }
 
     return updated_data
-
-
 
 
 
