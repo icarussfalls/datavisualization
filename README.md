@@ -1,4 +1,4 @@
-Trading strategy was build with ML ensemble models.
+Trading strategy was built with ML ensemble models.
 
 This is a simple trading dashboard built with Flask and Plotly to showcase trades data and performance over time.
 
