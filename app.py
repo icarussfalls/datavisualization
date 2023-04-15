@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 import json
+from flask import jsonify
 
 app = Flask(__name__)
 
@@ -66,7 +67,7 @@ def get_open_positions():
     
     # convert the data to a JSON object
     open_positions_json = open_positions_df.to_json(orient='records')
-    return json.dumps(open_positions_json)
+    return jsonify(open_positions_json)
 
 
 @app.route('/update_trades')
