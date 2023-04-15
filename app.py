@@ -18,7 +18,7 @@ def trades():
     conn = sqlite3.connect('trades.db')
     trades_df = pd.read_sql_query("SELECT * FROM trades", conn)
     conn.close()
-    trades_df.drop('id', axis =1, inplace=True )
+    trades_df.drop('id', axis = 1, inplace=True )
     # Convert time column to datetime object
     trades_df['time'] = pd.to_datetime(trades_df['time'])
 
@@ -26,15 +26,15 @@ def trades():
     trades_df = trades_df[trades_df['exit_price'].notna()]
 
     # Calculate profit/loss for each trade
-    trades_df['Profit/Loss'] = trades_df.apply(lambda row: row['qty'] * (row['exit_price'] - row['entry_price']) if row['trade_type'] == 'BUY' else row['qty'] * (row['entry_price'] - row['exit_price']), axis=1)
-    trades_df['Profit/Loss'] = trades_df['Profit/Loss'].round(2)
+    trades_df['profit_loss'] = trades_df.apply(lambda row: row['qty'] * (row['exit_price'] - row['entry_price']) if row['trade_type'] == 'BUY' else row['qty'] * (row['entry_price'] - row['exit_price']), axis=1)
+    trades_df['profit_loss'] = trades_df['profit_loss'].round(2)
 
     # Calculate cumulative profit/loss
-    trades_df['Cumulative P/L'] = trades_df['Profit/Loss'].cumsum()
-    trades_df['Cumulative P/L'] = trades_df['Cumulative P/L'].round(2)
+    trades_df['cumulative_pl'] = trades_df['profit_loss'].cumsum()
+    trades_df['cumulative_pl'] = trades_df['cumulative_pl'].round(2)
 
     # Create a scatter plot of cumulative profit/loss over time
-    fig = go.Figure(data=go.Scatter(x=trades_df['time'], y=trades_df['Cumulative P/L'], mode='lines'))
+    fig = go.Figure(data=go.Scatter(x=trades_df['time'], y=trades_df['cumulative_pl'], mode='lines'))
 
     fig.update_layout(title='Cumulative Profit/Loss Over Time', xaxis_title='Time', yaxis_title='Cumulative Profit/Loss')
 
@@ -83,15 +83,15 @@ def update_trades():
     trades_df = trades_df[trades_df['exit_price'].notna()]
 
     # Calculate profit/loss for each trade
-    trades_df['Profit/Loss'] = trades_df.apply(lambda row: row['qty'] * (row['exit_price'] - row['entry_price']) if row['trade_type'] == 'BUY' else row['qty'] * (row['entry_price'] - row['exit_price']), axis=1)
-    trades_df['Profit/Loss'] = trades_df['Profit/Loss'].round(2)
+    trades_df['profit_loss'] = trades_df.apply(lambda row: row['qty'] * (row['exit_price'] - row['entry_price']) if row['trade_type'] == 'BUY' else row['qty'] * (row['entry_price'] - row['exit_price']), axis=1)
+    trades_df['profit_loss'] = trades_df['profit_loss'].round(2)
 
     # Calculate cumulative profit/loss
-    trades_df['Cumulative P/L'] = trades_df['Profit/Loss'].cumsum()
-    trades_df['Cumulative P/L'] = trades_df['Cumulative P/L'].round(2)
+    trades_df['cumulative_pl'] = trades_df['profit_loss'].cumsum()
+    trades_df['cumulative_pl'] = trades_df['cumulative_pl'].round(2)
 
     # Create a scatter plot of cumulative profit/loss over time
-    fig = go.Figure(data=go.Scatter(x=trades_df['time'], y=trades_df['Cumulative P/L'], mode='lines'))
+    fig = go.Figure(data=go.Scatter(x=trades_df['time'], y=trades_df['cumulative_pl'], mode='lines'))
 
     fig.update_layout(title='Cumulative Profit/Loss Over Time', xaxis_title='Time', yaxis_title='Cumulative Profit/Loss')
 
