@@ -8,6 +8,7 @@ The dashboard currently contains a Trades page which displays a table of all tra
 
 <img width="1356" alt="Screenshot 2023-04-15 at 5 09 35 PM" src="https://user-images.githubusercontent.com/109421980/232211652-7dfe31e1-c9a9-4743-aaeb-59326d34184d.png">
 
-<img width="1356" alt="Screenshot 2023-04-15 at 5 10 09 PM" src="https://user-images.githubusercontent.com/109421980/232211777-4a9d72b3-16e4-4fc9-b016-57b9dda610ee.png">
+<img width="1426" alt="Screenshot 2023-04-15 at 5 28 28 PM" src="https://user-images.githubusercontent.com/109421980/232215920-82ae3344-cb4f-4f6a-8520-e69c36d8373d.png">
 
 <img width="1023" alt="Screenshot 2023-04-15 at 5 10 31 PM" src="https://user-images.githubusercontent.com/109421980/232211854-ef853b78-e101-47b7-a47e-5ba360635b43.png">
+
